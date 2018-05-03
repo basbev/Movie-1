@@ -2,40 +2,40 @@
   <div class="box">
     <h3 class="title">{{movieId}}</h3>
     <div class="columns">
-      <div v-for= "m in movies" :key="m" class="className(m.id)" @click="chooseMovie(m.id)">
+      <div v-for= "m in movies" :class="className(m.id)" @click="chooseMovie(m.id)">
         <figure class="image">
         <img :src= "imgSrc(m.id)">
-        </figure> 
+        </figure>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {movies} from 'Others/movie.json'
+import { movies } from 'Others/movie.json'
 export default {
   props: ['movieId'],
-  data(){
-    return{
+  data() {
+    return {
       movies
     }
   },
   methods:{
-    imgSrc(movieId){
+    imgSrc (movieId) {
       return `/movies/${ movieId }.jpg`
     },
-    chooseMovie(movieId){
+    chooseMovie (movieId) {
       console.log(movieId)
       this.$emit('chooseMovie', movieId)
     },
-    className(movieId){
+    className (movieId) {
       return [
         'colunm','pointer',
-        { 'chosen':this.movieId === movieId} 
+        { 'chosen': this.movieId === movieId }
       ]
     }
   },
-  mounted(){
+  mounted () {
     this.chooseMovie(movies[0].id)
   }
 }
